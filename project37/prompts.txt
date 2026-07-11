@@ -1,0 +1,49 @@
+The list of used prompts is not fully complete and also doesn't correspond to the final programs as a lot modification,changes and a lot of different ways to coompute the analysis has been tested, so the following prompts are 
+mostly possible prompts to submit to an agent in order to have reproducibility and are a oversemplification of the thought process behind. Also this prompts relate only to the final programs/analysis and plots proposed with all
+initial ideas and intermediate fixing and changing missing. i don't dispose of the full list of prompts and configuration so i can't stress enough that is a very oversemplification of the work.
+A lot of programs where made firstly in igraph but computational needs brought the necessity to rewrite them using union-find
+
+scaling3dfitbeta.R: write an R script to simulate achlioptas processes with a Bohman-Frieze, Product Rule and Erdos-Renyi model (previously explained) of different sizes (then adjusted)
+	with an union-find simulation. Take the average values of multiple realizations per model/size. By variating gamma from 0 to 0.6, and with diffenrent values of A (then adjusted)
+	fit the difference of time steps between t0 as the time in which the size of the largest connected component is smaller than n^gamma and t1 as the time at which the size of the largest 
+	connected component is of size C>An with a fitting with an hypothesis n^beta of the scaling  (here 2 approached has been tried, taking as beta value the value of logDelta/log n or for each
+	value of n taking multiple values of n that averaged give the mean value of n and perform a maximum likelihood fitting with those realizations. Although the second apprach could be more rigorous it did'nt really brought
+	significant improvements).
+	 Plot then the results in a different plot for each value of A in a 3d plot showing beta as a function of n and gamma. With the obtained values fit with a 
+	maximum likelihood criteria for each value of A with a model of gamma+lambda*beta=mu
+PRpoly.R: write an R script to simulate achlioptas processes with a Bohman-Frieze, Product Rule and Erdos-Renyi model (previously explained) of different sizes (then adjusted)
+	with an union-find simulation. Take the average values of multiple realizations per model/size. After extracting the averaged values of the largest connected component as a function of the size of the network and the value 
+	of r (t/n) fit in logscale with a maximum likelihood approach to find the polynomial scaling of the size of the largest connected component as a function of the size of the network n. Compute 2 different fitting, one taking 
+	fitting one polynomial model on all the data and one subdividing the data for r smaller then 0.5 and larger of 0.5 and performing 2 seperate fitting for ranges with a maximum likelihood appraoch. Then plot the results with a 
+	different plot per value of r and compare the 2 models with a loglikelihood ratio. (Since unlike the BF and ER model there are no theoretical proofs of the model before and after the phase transition ofg the product rule
+	model, just fitting with a powerlaw/polynomial model and verify the difference in the scaling was sufficient to capture a phase transition)
+deltaScPRMax.R:write an R script to simulate achlioptas processes with a Bohman-Frieze, Product Rule, Sum Rule, Erdos-Renyi model and the Product Rule model that instead aims to speed up the emergence of the largest 
+connected component (PRmax) (all previously explained) of different sizes with an union-find simulation.
+Take the average values of multiple realizations per model/size. Instead of stopping as soon as delta is found, record the size of the largest connected component at regular step intervals to capture the full macroscopic trajectory.
+Calculate the difference of time steps between t0 as the time in which the size of the largest connected component is smaller than n^1/2 and t1 as the time at which the size of the largest connected component is of size C>0.5n. 
+Perform a maximum likelihood fitting in logscale with an hypothesis of the scaling of n^beta. Strictly restrict this linear regression fitting only to network sizes N >= 100,000 to ensure the slope is extracted from the
+ asymptotic regime. For each fitting report the 95% credible interval of the found values. the plot the results
+finiteSize.R: write an R script to simulate achlioptas processes with a Bohman-Frieze, Product Rule Erdos-Renyi model  (all previously explained) of different sizes (then adjusted)with an union-find simulation.take the average values 
+	of multiple realizations per model/size. Taking n ranges from 100 to 500, 1000 to 5000, 10000 tgo 50000, 100000 to 500000 and 500000 to 30000000, produce multiple realization of networks for each size and for each proposed range
+	fit in logscale the difference of time steps between t0 as the time in which the size of the largest connected component is smaller than n^1/2 and t1 as the time at which the size of the largest (to speed up the analysis the computation stops as soon as delta is found)
+	connected component is of size C>0.5n with a maximum likelihood fitting in logscale with an hypothesis of the scaling of n^beta, taking a 95% credible interval on the values of the fits. Then plot the results for each proposed model
+	adding for each value error bars representing the found credible interval and plotting along with empirical data the theretiocal values of 1.0 for the ER and BF model and 2/3 for the PR model
+ERphasetransition.R: write an R script to simulate achlioptas processes with a Erdos-Renyi model (previously explained) of different sizes (then adjusted)
+	with an union-find simulation. Take the average values of multiple realizations per model/size. After extracting the averaged values of the largest connected component as a function of the size of the network and the value 
+	of r (t/n) fit in logscale with a maximum likelihood approach to find the polynomial scaling of the size of the largest connected component as a function of the size of the network n. Compute 3 different fitting, one taking 
+	fitting one logaritmic model for all values of r, one fitting one linear model for all values of r and subdividing the data for r smaller then 0.5 and larger of 0.5 and performing 2 seperate fitting for r smaller 
+	then 0.5 using a logaritmic model and using a linear model for r greater then 0.5 with a maximum likelihood appraoch. Then plot the results with a different plot per value of r and compare the only-logaritmic
+  	and only-linear model with the model that implies a change in the trend with a loglikelihood ratio
+BFphasetransition.R:write an R script to simulate achlioptas processes with a Bohman-Frieze model (previously explained) of different sizes (then adjusted)
+	with an union-find simulation. Take the average values of multiple realizations per model/size. After extracting the averaged values of the largest connected component as a function of the size of the network and the value 
+	of r (t/n) fit in logscale with a maximum likelihood approach to find the polynomial scaling of the size of the largest connected component as a function of the size of the network n. Compute 3 different fitting, one taking 
+	fitting one logaritmic model for all values of r, one fitting one linear model for all values of r and subdividing the data for r smaller then 0.5 and larger of 0.5 and performing 2 seperate fitting for r smaller 
+	then 0.5 using a logaritmic model and using a linear model for r greater then 0.5 with a maximum likelihood appraoch. Then plot the results with a different plot per value of r and compare the only-logaritmic
+  	and only-linear model with the model that implies a change in the trend with a loglikelihood ratio
+asympt.R: write an R script to simulate Achlioptas processes using the BF, PR, ER models of progressively larger network sizes using an Union-Find simulation.
+For each model, network size, and step, record the size of the largest connected component across multiple independent realizations to construct an averaged trajectory.
+From each averaged master trajectory, extract the phase transition boundaries in terms of edge densities with t0 as  defined as the density where the largest connected component first equals or exceeds n^1/2and t1
+defined as the density where the largest connected component exceeds macroscopic size 0.5n.
+Using these extracted boundary points across system sizes, perform a Finite-Size Scaling (FSS) analysis with a Maximum Likelihood linear regression approach.
+ Regress the boundary edge densities against n^-1/3 to dynamically extract the asymptotic limit as for n going to infinity . For each fitted asymptotic limit, 
+compute and report the 95% confidence interval. Plot then the results
